@@ -1,0 +1,26 @@
+<div class="container content" style="margin-top: 20px;">
+    <div class="row">
+        <div class="card text-white bg-dark col-md-6 offset-md-3">
+            <form>
+                <div class="form-group">
+                    <div class="card-header">Nombre del pedido</div>
+                    <input type="text" class="form-control" id="pedido" placeholder="Ingrese el pedido"  #nombre>
+                    <small id="pedidoHelp" class="form-text text-muted">Por favor ingrese el pedido a realizar</small>
+                </div>
+                <div class="form-group">
+                    <div class="card-header">Ingredientes</div>
+                    <input type="text" class="form-control" id="ingredientesID" placeholder="Ingrese los ingredientes" #ingredientes>
+                    <small id="ingHelp" class="form-text text-muted">Por favor ingrese los ingredientes del mismo</small>
+                </div>
+
+               <div class="text-center">
+                <button type="submit" class="btn btn-primary col-md-3" id="btnSend" (click)="guardarPed(nombre.value, ingredientes.value)">Enviar</button>
+               </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr class="mb-5">
+<div class="row row-flex">
+    <app-food-desc *ngFor="let d of pedidos" [pedido]="d"></app-food-desc>
+</div>

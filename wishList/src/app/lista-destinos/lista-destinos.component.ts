@@ -7,7 +7,7 @@ import { DestinoViaje } from '../models/destino-viaje.model';/*Con esto importo 
   styleUrls: ['./lista-destinos.component.css']
 })
 export class ListaDestinosComponent implements OnInit {
-  destinos : string[];
+  destinos : DestinoViaje[];
   constructor() {
     this.destinos = [];
    }
@@ -21,4 +21,10 @@ export class ListaDestinosComponent implements OnInit {
     return false;/*Retorno false para no recargar elformulario */
   }
 
+  elegido(d: DestinoViaje) {
+       this.destinos.forEach(function(x) {x.setSelected(false); });
+       d.setSelected(true);
+  }
+
 }
+ 

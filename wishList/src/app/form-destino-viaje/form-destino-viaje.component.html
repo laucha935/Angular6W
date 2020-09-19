@@ -1,0 +1,20 @@
+<form [formGroup]="fg" (ngSubmit)="guardar(fg.controls['nombre'].value, fg.controls['url'].value)"> <!-- Vinculamos nuestro form a una variable fg, cuando submiteamos invocamos a la function guardar-->
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Ingresar nombre..." [formControl]="fg.controls['nombre']" />
+        <ul>
+            <li *ngFor="let r of searchResults;">{{r}}</li>
+        </ul>
+        <div *ngIf="fg.controls['nombre'].hasError('required')">nombre requerido</div>
+        <div *ngIf="fg.controls['nombre'].hasError('invalidNombre')">nombre invalido</div> <!--Esta validacion depende de lo que devuelva la function declarada en el .ts-->
+        <div *ngIf="fg.controls['nombre'].hasError('minLongNombre')">EL nombre debe tener al menos {{minLongitud}} de largo !</div> <!--Son validaciones que desaparecen cuando el campo se llena con algun valor-->
+    </div>
+    <div class="form-group">
+        <label for="Imagen Url">Imagen Url</label>
+        <input type="text" class="form-control" id="imagenUrl" placeholder="Ingresar url..." [formControl]="fg.controls['url']" />
+    </div>
+    <button type="submit" class="btn btn-primary" *ngIf="fg.valid">Guardar!</button>
+</form>
+
+<!-- Es decir con el comando formgroup nos referimos al formulario especificado, es decir, con la function guardar, estamos tomando el nombre y la url y al hacer submit en el
+form, se activa, al hacer submit en el button de type submit se activa la function guardar -->

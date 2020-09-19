@@ -1,9 +1,24 @@
 <div class="container content">
-   <div class="row">
+<div class="page-header">
+  <div class="container">
+    <h1>Ruteo Simple</h1>
+    <div class="navLinks">
+      <a [routerLink]="['/home']">Home</a> <!-- Con routerLink podemos acceder al componente Home, que contiene el componente listaDestinos -->
+      <a [routerLink]="['/destino']">Destino</a> <!-- En este caso vamos al componentede detalle del desitno, al seleccionar esto, es depende lo que muestre el 
+                                                  router-outlet -->
+    </div>
+  </div>
+</div>
+  
+  <div class="row">
      <h1>
        Title
      </h1>
    </div>
-     <app-lista-destinos></app-lista-destinos>
+    
+     <router-outlet></router-outlet> <!-- Router Outlet es la variable que depende de lo que se seleccione en el header, mostrara el componente seleccionado -->
    
 </div>
+
+<hr class="mb-5">
+   Fecha: {{time | async}}

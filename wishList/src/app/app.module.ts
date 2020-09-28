@@ -7,8 +7,12 @@ import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
 import { ListaDestinosComponent } from './lista-destinos/lista-destinos.component';
 import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
 import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
 import { DestinosApiClient } from './models/destinos-api-client.model';
+import { DestinosViajesState, reducerDestinosViajes, intializeDestinosViajesState, DestinosViajesEffects } from './models/destinos-viajes-state.model';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 const routes : Routes = [                             /*Definimos las rutas que vamos a utilizar en nuestra app */
   {path: '', redirectTo: 'home',pathMatch: 'full'}, /*Nos sirve que matchee cuando esta vacio */
@@ -16,6 +20,23 @@ const routes : Routes = [                             /*Definimos las rutas que 
   {path: 'destino', component: DestinoDetalleComponent},/*El path destino nos lleva hacia el Detalle del componente */
   
 ];
+
+// redux init
+
+export interface AppState {
+  destinos : DestinosViajesState;
+
+} 
+
+const reducers : ActionReducerMap<AppState> = {
+  destinos: reducerDestinosViajes
+};
+
+let reducersInitialState = {
+  destinos : intializeDestinosViajesState()
+}
+
+//redux fin init
  
 @NgModule({
   declarations: [
@@ -23,14 +44,17 @@ const routes : Routes = [                             /*Definimos las rutas que 
     DestinoViajeComponent,
     ListaDestinosComponent,
     DestinoDetalleComponent,
-    FormDestinoViajeComponent
+    FormDestinoViajeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),/*Los tenemos que cargar asi registramos las rutas de los componentes, es decir son rutas registrada en el modulo */
-    AppRoutingModule
+    AppRoutingModule,
+    NgRxStoreModule.forRoot(reducers, {initialState: reducersInitialState}),
+    EffectsModule.forRoot([DestinosViajesEffects]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [
     DestinosApiClient
